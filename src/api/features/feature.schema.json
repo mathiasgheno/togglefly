@@ -1,0 +1,5 @@
+{
+  "title": "FEATURE_1",
+  "systems": ["S1"],
+  "allowedRoles": ["ADMINS", "MANAGEMENTS"]
+}
