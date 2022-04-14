@@ -9,10 +9,22 @@ export class DynamoDBConfig {
     this.paginationLimit = 5;
   }
 
+  /**
+   * @param paginationLimit
+   * @description
+   *
+   * Change the default pagination limit.
+   * This change will affect `listAll` method.
+   *
+   */
   setPaginationLimit(paginationLimit) {
     this.paginationLimit = paginationLimit;
   }
 
+  /**
+   * @description
+   * Set property `endpoint` to local then you can run your project locally.
+   */
   setLocalEnvironment() {
     this.connectionConfigs = {
       ...this.connectionConfigs,
