@@ -1,16 +1,17 @@
-module.exports.run = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
+import { handlerSuccess, handlerError } from '../utils/api.utils.mjs';
+import { featuresEntityFactory } from './features.entity.mjs';
+import log from 'loglevel';
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
+log.setLevel('info');
+
+export async function createFeatureHandler(event) {
+  log.info('Executing createFeatureHandler function');
+  const featureDTO = JSON.parse(event.body);
+  const entity = await featuresEntityFactory();
+  const featureInstance = entity.getIntance();
+  log.info('Executing insert in createFeatureHandler');
+  return featureInstance
+    .insert(featureDTO)
+    .then(handlerSuccess(event))
+    .catch(handlerError(event))
+}

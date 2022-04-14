@@ -1,10 +1,10 @@
-import { DynamoDBEntity } from '../../common/DynamoDBEntity';
+import { DynamoDBEntity } from '../../common/DynamoDBEntity/index.mjs';
 import log from 'loglevel';
 
 export const featuresEntityFactory = async function () {
   const ENTITY = 'features';
 
-  log.info(`Creating table of entity ${ENTITY}.`);
+  log.info(`Executing featuresEntityFactory`);
 
   const entity = new DynamoDBEntity('features');
   await entity.createTable();
