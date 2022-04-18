@@ -15,6 +15,8 @@ provider:
         - dynamodb:ListTables
         - dynamodb:Scan
         - dynamodb:GetItem
+        - dynamodb:DeleteItem
+        - dynamodb:UpdateItem
       Resource: "arn:aws:dynamodb:sa-east-1:258835071595:table/*"
 
 functions:
@@ -24,12 +26,34 @@ functions:
       - http:
           path: /features
           method: post
+
   listFeature:
     handler: src/api/features/features.listAllFeaturesHandler
     events:
       - http:
           path: /features
           method: get
+
+  getFeature:
+    handler: src/api/features/features.getFeatureHandler
+    events:
+      - http:
+          path: /features/{id}
+          method: get
+
+  deleteFeature:
+    handler: src/api/features/features.deleteFeatureHandler
+    events:
+      - http:
+          path: /features/{id}
+          method: delete
+
+  updateFeature:
+    handler: src/api/features/features.updateFeatureHandle
+    events:
+      - http:
+          path: /features/{id}
+          method: put
 
 resources:
   Resources:

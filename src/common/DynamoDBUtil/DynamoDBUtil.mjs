@@ -45,32 +45,32 @@ export function getUnmarshallDefaultConfig() {
   }
 }
 
-
 export function generateUpdateConfigs(TableName) {
   // see: https://stackoverflow.com/a/66036730/7892749
   return function (todo) {
     const { id, ...restToUpdate } = todo;
     const itemKeys = Object.keys(restToUpdate);
     const Key = marshall(todo);
+
+    const UpdateExpression = `SET ${itemKeys.map((k, index) => `#field${index} = :value${index}`).join(', ')}`;
+
+    const ExpressionAttributeNames = itemKeys.reduce((accumulator, k, index) => ({
+      ...accumulator,
+      [`#field${index}`]: k,
+    }), {});
+
+    const ExpressionAttributeValues = marshall(itemKeys.reduce((accumulator, k, index) => ({
+      ...accumulator,
+      [`:value${index}`]: restToUpdate[k]
+    }), {}));
+
     return {
       TableName,
       Key,
       ReturnValues: 'ALL_NEW',
-      UpdateExpression: `SET ${itemKeys.map((k, index) => `#field${index} = :value${index}`).join(', ')}`,
-      ExpressionAttributeNames: itemKeys.reduce(
-        (accumulator, k, index) => (
-          {
-            ...accumulator,
-            [`#field${index}`]: k }
-        ), {}),
-      ExpressionAttributeValues: marshall(
-        itemKeys.reduce((accumulator, k, index) => (
-          {
-            ...accumulator,
-            [`:value${index}`]: restToUpdate[k]
-          }
-        ), {})
-      ),
+      UpdateExpression,
+      ExpressionAttributeNames,
+      ExpressionAttributeValues,
     }
   }
 }
