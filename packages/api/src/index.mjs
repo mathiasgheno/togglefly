@@ -2,6 +2,8 @@ import log from 'loglevel';
 import { featuresEntityFactory } from './features/features.entity.mjs';
 import { usersEntityFactory } from './users/users.entity.mjs';
 
+console.log('hello from @togglefly/api');
+
 async function main() {
   log.setLevel(process.env.LOG_LEVEL || 'info');
 

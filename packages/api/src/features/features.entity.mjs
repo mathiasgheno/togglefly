@@ -1,4 +1,4 @@
-import { DynamoDBEntity } from '../../common/DynamoDBEntity/index.mjs';
+import { DynamoDBEntity } from '@togglefly/core';
 import log from 'loglevel';
 
 export const featuresEntityFactory = async function () {

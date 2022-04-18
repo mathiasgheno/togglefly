@@ -1,4 +1,4 @@
-import { DynamoDBEntity } from '../../common/DynamoDBEntity/index.mjs';
+import { DynamoDBEntity } from '@togglefly/core';
 
 export const usersEntityFactory = async function () {
   const entity = new DynamoDBEntity('users');

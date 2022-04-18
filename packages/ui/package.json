@@ -1,0 +1,13 @@
+{
+  "name": "@togglefly/ui",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "start": "node src/index.mjs"
+  },
+  "keywords": [],
+  "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
+  "license": "ISC"
+}

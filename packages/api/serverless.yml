@@ -21,35 +21,35 @@ provider:
 
 functions:
   createFeature:
-    handler: src/api/features/features.createFeatureHandler
+    handler: src/features/features.createFeatureHandler
     events:
       - http:
           path: /features
           method: post
 
   listFeature:
-    handler: src/api/features/features.listAllFeaturesHandler
+    handler: src/features/features.listAllFeaturesHandler
     events:
       - http:
           path: /features
           method: get
 
   getFeature:
-    handler: src/api/features/features.getFeatureHandler
+    handler: src/features/features.getFeatureHandler
     events:
       - http:
           path: /features/{id}
           method: get
 
   deleteFeature:
-    handler: src/api/features/features.deleteFeatureHandler
+    handler: src/features/features.deleteFeatureHandler
     events:
       - http:
           path: /features/{id}
           method: delete
 
   updateFeature:
-    handler: src/api/features/features.updateFeatureHandle
+    handler: src/features/features.updateFeatureHandle
     events:
       - http:
           path: /features/{id}
