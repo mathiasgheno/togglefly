@@ -15,3 +15,15 @@ export async function createFeatureHandler(event) {
     .then(handlerSuccess(event))
     .catch(handlerError(event))
 }
+
+export const listAllFeaturesHandler = async (event) => {
+  log.info('Executing createFeatureHandler function');
+  const entity = await featuresEntityFactory();
+  const featureInstance = entity.getIntance();
+  return featureInstance
+    .listAll()
+    .then(handlerSuccess(event))
+    .catch(handlerError(event))
+}
+
+// listAllFeaturesHandler().then(console.log);

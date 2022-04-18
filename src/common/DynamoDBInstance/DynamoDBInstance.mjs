@@ -1,6 +1,6 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
-import { unmarshall, marshall } from '@aws-sdk/util-dynamodb';
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb/dist-es';
+import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb/dist-es';
+import { unmarshall, marshall } from '@aws-sdk/util-dynamodb/dist-es';
 import { getMarshallDefaultConfig, getUnmarshallDefaultConfig } from '../DynamoDBUtil/DynamoDBUtil.mjs';
 
 export function getDynamoInstance(options) {

@@ -1,5 +1,5 @@
-import { v4 } from 'uuid';
-import { DeleteItemCommand, GetItemCommand, ScanCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb';
+import { v4 } from 'uuid/dist/esm-node';
+import { DeleteItemCommand, GetItemCommand, ScanCommand, UpdateItemCommand } from '@aws-sdk/client-dynamodb/dist-es';
 import { getDynamoInstance } from '../DynamoDBInstance/DynamoDBInstance.mjs';
 import { generateUpdateConfigs } from '../DynamoDBUtil/DynamoDBUtil.mjs';
 import { DynamoDBConfig } from '../DynamoDBConfig/DynamoDBConfig.mjs';

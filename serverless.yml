@@ -1,6 +1,10 @@
 service: lambda-dynamodb-v2
 frameworkVersion: '3'
 
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -9,21 +13,24 @@ provider:
       Action:
         - dynamodb:PutItem
         - dynamodb:ListTables
+        - dynamodb:Scan
+        - dynamodb:GetItem
       Resource: "arn:aws:dynamodb:sa-east-1:258835071595:table/*"
 
 functions:
-  createTodo:
-    handler: src/api/features/features.handler.run
+  createFeature:
+    handler: src/api/features/features.createFeatureHandler
     events:
       - http:
-          path: features
+          path: /features
           method: post
-  listTables:
-    handler: list.run
+  listFeature:
+    handler: src/api/features/features.listAllFeaturesHandler
     events:
       - http:
-          path: todos
+          path: /features
           method: get
+
 resources:
   Resources:
     TodosDynamoDbTable:
