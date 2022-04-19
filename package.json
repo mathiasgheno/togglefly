@@ -8,7 +8,8 @@
     "test": "pnpm recursive test",
     "start": "pnpm recursive run start",
     "workspaces": "pnpm ls -r --depth -1 --json",
-    "deploy": "pnpm recursive run deploy"
+    "deploy": "pnpm recursive run deploy",
+    "postinstall": "pnpm recursive run link"
   },
   "keywords": [
     "toggle",
