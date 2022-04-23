@@ -1,72 +1,99 @@
 # 🚀 Togglefly
 
-Togglefly is an Open Source Project that allows you to deploy a Feature Toggle System through AWS technologies such as DynamoDB and Lambda Functions. This project includes those features:
+[//]: # (Togglefly is an Open Source Project that allows you to deploy a Feature Toggle System through AWS technologies such as DynamoDB and Lambda Functions. This project includes those features:)
 
+[//]: # ()
+[//]: # ()
+[//]: # (- 👌 Almost no configuration)
 
-- 👌 Almost no configuration
+[//]: # ()
+[//]: # (- 🤖 Simple RESTful API integration)
 
-- 🤖 Simple RESTful API integration
+[//]: # ()
+[//]: # (- 🚚 Isolated CLI)
 
-- 🚚 Isolated CLI
+[//]: # ()
+[//]: # (- ❤️ GUI visualization included)
 
-- ❤️ GUI visualization included
+[//]: # ()
+[//]: # (- 😍 Awesome DX inclined framework)
 
-- 😍 Awesome DX inclined framework
+[//]: # ()
+[//]: # ()
+[//]: # (## Installation and Configuration)
 
+[//]: # ()
+[//]: # ()
+[//]: # (```shell)
 
-## Installation and Configuration
+[//]: # ()
+[//]: # (npm install -g @togglefly/cli)
 
+[//]: # ()
+[//]: # (```)
 
-```shell
+[//]: # ()
+[//]: # ()
+[//]: # (After that you can check if everything is working with `togglefly --version` or `tgf --version`.)
 
-npm install -g @togglefly/cli
+[//]: # ()
+[//]: # ()
+[//]: # (If it is working, then you can create an IAM user with full DynamoDB and Lambda Functions privilegies in your AWS console and set it up locally in your computer.)
 
-```
+[//]: # ()
+[//]: # ()
+[//]: # (## Usage)
 
+[//]: # ()
+[//]: # ()
+[//]: # (You can deploy your AWS Lambda Functions with this command:)
 
-After that you can check if everything is working with `togglefly --version` or `tgf --version`.
+[//]: # ()
+[//]: # ()
+[//]: # (```shell)
 
+[//]: # ()
+[//]: # (tgf deploy --region sa-east-1)
 
-If it is working, then you can create an IAM user with full DynamoDB and Lambda Functions privilegies in your AWS console and set it up locally in your computer.
+[//]: # ()
+[//]: # (```)
 
+[//]: # ()
+[//]: # ()
+[//]: # (If you want to test these features locally, you can launch it through `tgf launch`. If you don't provide the `local` as `true` Togglefly will use your AWS Cloud account. Otherwise, it will run an local instance of DynamoDB so you can test it. )
 
-## Usage
+[//]: # ()
+[//]: # ()
+[//]: # (```shell)
 
+[//]: # ()
+[//]: # (tgf launch --local true)
 
-You can deploy your AWS Lambda Functions with this command:
+[//]: # ()
+[//]: # (```)
 
+[//]: # ()
+[//]: # ()
+[//]: # (## Supported API)
 
-```shell
+[//]: # ()
+[//]: # ()
+[//]: # (This project supports the following relationships:)
 
-tgf deploy --region sa-east-1
+[//]: # ()
+[//]: # ()
+[//]: # (- Features and Systems relationship )
 
-```
+[//]: # ()
+[//]: # (- Features and Allowed Roles relationship )
 
+[//]: # ()
+[//]: # (- Users and Roles relationship)
 
-If you want to test these features locally, you can launch it through `tgf launch`. If you don't provide the `local` as `true` Togglefly will use your AWS Cloud account. Otherwise, it will run an local instance of DynamoDB so you can test it. 
+[//]: # ()
+[//]: # ()
+[//]: # (## Support and Community)
 
-
-```shell
-
-tgf launch --local true
-
-```
-
-
-## Supported API
-
-
-This project supports the following relationships:
-
-
-- Features and Systems relationship 
-
-- Features and Allowed Roles relationship 
-
-- Users and Roles relationship
-
-
-## Support and Community
-
-
-If this project is useful for you or for your company, please consider supporting our project through sponsorship. Pull Request are welcome. 
+[//]: # ()
+[//]: # ()
+[//]: # (If this project is useful for you or for your company, please consider supporting our project through sponsorship. Pull Request are welcome. )
