@@ -1,4 +1,4 @@
-import { getDynamoInstance } from './DynamoDBInstance.mjs';
+import { getDynamoInstance } from './DynamoDBInstance.js';
 
 describe('DynamoDBInstance', () => {
   let instance;

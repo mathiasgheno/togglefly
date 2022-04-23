@@ -1,4 +1,4 @@
-import { DynamoDBEntity } from './DynamoDBEntity.mjs';
+import { DynamoDBEntity } from './DynamoDBEntity.js';
 
 describe('DynamoDBEntity', () => {
   let entity;

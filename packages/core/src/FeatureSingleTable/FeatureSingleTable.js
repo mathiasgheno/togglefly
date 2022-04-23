@@ -1,5 +1,5 @@
-import { DynamoDBConfig, getDynamoInstance } from '../index.mjs';
-import { ScanCommand } from '@aws-sdk/client-dynamodb/dist-es';
+import { DynamoDBConfig, getDynamoInstance } from '../index.js';
+import { ScanCommand } from '@aws-sdk/client-dynamodb';
 import log from 'loglevel';
 
 class FeaturesSingleTableEntity extends DynamoDBConfig {

@@ -1,4 +1,4 @@
-import { DynamoDBConfig } from './DynamoDBConfig.mjs';
+import { DynamoDBConfig } from './DynamoDBConfig.js';
 
 describe('DynamoDBConfig', () => {
   let table;

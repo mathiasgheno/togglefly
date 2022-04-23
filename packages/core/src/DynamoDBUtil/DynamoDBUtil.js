@@ -1,4 +1,4 @@
-import { marshall } from '@aws-sdk/util-dynamodb/dist-es';
+import { marshall } from '@aws-sdk/util-dynamodb';
 
 export function generateDefaultCreateTableConfig(TableName) {
   return {

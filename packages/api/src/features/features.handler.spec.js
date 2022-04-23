@@ -1,4 +1,4 @@
-import { createFeatureHandler } from './features.handler.mjs';
+import { createFeatureHandler } from './features.js';
 
 describe('features handler', () => {
   it('should insert a feature demanding title, allowedRoles and systems', async () => {

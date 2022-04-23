@@ -2,10 +2,11 @@
   "name": "@togglefly/core",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.mjs",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "node src/index.mjs"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.58.0",

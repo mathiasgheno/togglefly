@@ -18,7 +18,8 @@
   "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^17.0.25"
+    "@types/node": "^17.0.25",
+    "@vercel/ncc": "^0.33.4"
   },
   "devDependencies": {
     "jest": "^27.5.1"

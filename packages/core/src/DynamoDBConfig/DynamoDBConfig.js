@@ -1,6 +1,6 @@
-import { generateDefaultConnectionConfig, generateDefaultCreateTableConfig } from '../DynamoDBUtil/DynamoDBUtil.mjs';
-import { getDynamoInstance } from '../DynamoDBInstance/DynamoDBInstance.mjs';
-import { ListTablesCommand, CreateTableCommand } from '@aws-sdk/client-dynamodb/dist-es';
+import { generateDefaultConnectionConfig, generateDefaultCreateTableConfig } from '../DynamoDBUtil/DynamoDBUtil.js';
+import { getDynamoInstance } from '../DynamoDBInstance/DynamoDBInstance.js';
+import { ListTablesCommand, CreateTableCommand } from '@aws-sdk/client-dynamodb';
 
 export class DynamoDBConfig {
   constructor(TableName, dynamoConfigs = {}) {

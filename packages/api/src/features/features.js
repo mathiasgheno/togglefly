@@ -1,5 +1,5 @@
-import { handlerSuccess, handlerError } from '../utils/api.utils.mjs';
-import { featuresEntityFactory } from './features.entity.mjs';
+import { handlerSuccess, handlerError } from '../utils/api.utils.js';
+import { featuresEntityFactory } from './features.entity.js';
 import log from 'loglevel';
 
 log.setLevel('info');
