@@ -64,7 +64,7 @@ export class DynamoDBEntity extends DynamoDBConfig {
           ? dynamo.send(command)
           : undefined
       ))
-      .then((resultado) => resultado && this.search({ id }))
+      .then((result) => result && this.search({ id }))
       .finally(() => dynamo.destroy());
   }
 
