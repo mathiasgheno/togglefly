@@ -1,5 +1,7 @@
 {
-  "title": "FEATURE_1",
-  "systems": ["S1"],
-  "allowedRoles": ["ADMINS", "MANAGEMENTS"]
+  "title": "F1",
+  "systems": ["S1", "S2"],
+  "allowedRoles": ["ADMIN", "MANAGEMENT"],
+  "description": "This feature will do that",
+  "active": true
 }
