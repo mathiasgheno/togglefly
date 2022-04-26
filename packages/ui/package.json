@@ -5,9 +5,16 @@
   "main": "src/index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "start": "node src/index.mjs"
+    "build": "esbuild src/app.jsx --bundle --outfile=dist/index.js",
+    "start": "node src/index.mjs",
+    "server": "pnpm run build && node server.mjs"
   },
   "keywords": [],
   "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "esbuild": "^0.14.38",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
 }
