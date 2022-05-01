@@ -3,6 +3,22 @@ import { ScanCommand } from '@aws-sdk/client-dynamodb';
 import { featureDTO } from './FeatureSingleTable.utils.js';
 import log from 'loglevel';
 
+/**
+ * @typedef ISingleTableQuery
+ * @property {string} pk
+ * @property {string} sk
+ */
+
+/**
+ * @typedef IToggleSingleTable
+ * @property {string} pk
+ * @property {string} sk
+ * @property {string} entityType
+ * @property {string} name
+ * @property {string} description
+ * @property {boolean} enabled
+ */
+
 export class FeaturesSingleTableEntity extends DynamoDBConfig {
   constructor(TableName, dynamoConfigs = {}) {
     super(TableName, dynamoConfigs);
@@ -12,17 +28,11 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
   }
 
   /**
-   * @typedef ISingleTableQuery
-   * @property {String} pk
-   * @property {String} sk
-   */
-
-  /**
-   * @param lastKey
+   * @param {string} lastKey
    * @param {ISingleTableQuery} filters
-   * @returns {Promise<[]>}
+   * @returns {Promise<IToggleSingleTable[]>}
    */
-  scan(lastKey, { pk, sk }) {
+  scan(lastKey = undefined, { pk, sk }) {
     log.info('Executing scan function');
     const { connectionConfigs, TableName } = this;
     const { client: dynamo, unmarshall, marshall } = getDynamoInstance(connectionConfigs);
@@ -42,11 +52,24 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     log.info(`Executing scan with sk ${sk}`);
     return dynamo
       .send(command)
-      .then(result => result.Items.map(item => unmarshall(item)))
+      .then(result => (
+        result
+          ? result.Items.map(item => unmarshall(item))
+          : []
+      ))
       .finally(() => dynamo.destroy());
   }
 
-  async listAll(lastKey) {
+  /**
+   * @description
+   *
+   * Return all the toggles that are stored.
+   * You can pass the `lastKey` as parameter to control pagination.
+   *
+   * @param lastKey
+   * @returns {Promise<IToggle[]>}
+   */
+  async listAll(lastKey = undefined) {
     log.info('Executing list function');
     const features = await this.scan(lastKey, {
       pk: this.prefixFeature,
@@ -67,7 +90,11 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     return features.map(featureDTO);
   }
 
-  getRoleDetails(rolePk) {
+  /**
+   * @param {string} rolePk
+   * @returns {Promise<IToggle | undefined>}
+   */
+  #getRoleDetails(rolePk) {
     const filters = {
       pk: rolePk,
       sk: rolePk,
@@ -76,7 +103,12 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       .then(roles => roles[0]);
   }
 
-  getSystemDetails(systemPk) {
+  /**
+   *
+   * @param {string} systemPk
+   * @returns {Promise<IToggleSingleTable | undefined>}
+   */
+  #getSystemDetails(systemPk) {
     const filters = {
       pk: systemPk,
       sk: systemPk,
@@ -87,8 +119,8 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
 
   /**
    * @private
-   * @param {String} feature
-   * @returns {Promise<String[]>}
+   * @param {string} feature
+   * @returns {Promise<string[]>}
    */
   async #listAllRolesOfFeature(feature) {
     log.info('Executing listRoles function.');
@@ -99,7 +131,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     log.debug({ roles });
     log.info('Making request for role datails.');
     for await (let role of roles) {
-      const roleDatails = await this.getRoleDetails(role.sk);
+      const roleDatails = await this.#getRoleDetails(role.sk);
       role.name = roleDatails.name;
     }
     log.debug({ roles });
@@ -121,7 +153,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     const systems = await this.scan(undefined, filters);
     log.debug({ systems });
     for (let system of systems) {
-      const systemDetails = await this.getSystemDetails(system.sk);
+      const systemDetails = await this.#getSystemDetails(system.sk);
       log.debug({ systemDetails });
       system.name = systemDetails.name;
     }
@@ -130,17 +162,51 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
   }
 
   /**
-   * @todo
-   * @param RoleName
+   * @description
+   *
+   * Will list all roles that are stored.
+   *
+   * @returns {Promise<string[]>}
    */
-  findAllFeaturesOfRole(RoleName) {
+  listAllRoles() {
+    const query = {
+      pk: this.prefixRole,
+      sk: this.prefixRole,
+    };
+    return this.scan(undefined, query)
+      .then(result => result.map(({ name }) => name));
+  }
+
+  /**
+   * @description Will list all systems thar are stored
+   * @returns {Promise<string[]>}
+   */
+  listAllSystems() {
+    const query = {
+      pk: this.prefixSystem,
+      sk: this.prefixSystem,
+    };
+    return this.scan(undefined, query)
+      .then(result => result.map(({ name }) => name));
+  }
+
+  /**
+   * @description
+   * Will list all features stored for roles.
+   * The roles passed as parameter will use the logic OR.
+   * @param {IToggle[]} roles
+   */
+  listAllTogglesWithRoles(roles) {
 
   }
 
   /**
-   * todo
+   * @description
+   * Will list all features stored for systems.
+   * The systems passed as parameter will use the logic OR.
+   * @param {IToggle[]} systems
    */
-  findAllFeaturesOfSystem() {
+  listAllFeaturesOfSystems(systems) {
 
   }
 }

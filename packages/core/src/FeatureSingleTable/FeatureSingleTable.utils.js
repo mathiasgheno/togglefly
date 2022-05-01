@@ -1,3 +1,16 @@
+/**
+ * @typedef IToggle
+ * @property {string} id
+ * @property {string[]} allowedRoles
+ * @property {string[]} systems
+ * @property {string} name
+ * @property {string} description
+ */
+
+/**
+ * @param feature
+ * @returns IToggle
+ */
 export const featureDTO = (feature) => {
   return {
     id: feature.pk,
@@ -5,5 +18,6 @@ export const featureDTO = (feature) => {
     systems: feature.systems,
     name: feature.name,
     description: feature.description,
+    // roles: feature.roles, //TODO
   };
 }

@@ -3,5 +3,6 @@
   "systems": ["S1", "S2"],
   "allowedRoles": ["ADMIN", "MANAGEMENT"],
   "description": "This feature will do that",
-  "active": true
+  "type": "feature",
+  "enabled": true
 }
