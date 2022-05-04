@@ -11,7 +11,7 @@
  * @param feature
  * @returns IToggle
  */
-export const featureDTO = (feature) => {
+export const toggleDTO = (feature) => {
   return {
     id: feature.pk,
     allowedRoles: feature.allowedRoles,
