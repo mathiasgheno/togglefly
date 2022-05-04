@@ -1,6 +1,7 @@
-import { DynamoDBConfig, getDynamoInstance } from '../index.js';
-import { ScanCommand } from '@aws-sdk/client-dynamodb';
-import { featureDTO } from './FeatureSingleTable.utils.js';
+import { DynamoDBConfig, getDynamoInstance } from '../../index.js';
+import {ScanCommand, PutItemCommand, GetItemCommand} from '@aws-sdk/client-dynamodb';
+import { toggleDTO } from './ToggleSingleTable.utils.js';
+import { v4 } from 'uuid';
 import log from 'loglevel';
 
 /**
@@ -25,69 +26,6 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     this.prefixFeature = 'F#';
     this.prefixSystem = 'S#';
     this.prefixRole = 'R#'
-  }
-
-  /**
-   * @param {string} lastKey
-   * @param {ISingleTableQuery} filters
-   * @returns {Promise<IToggleSingleTable[]>}
-   */
-  scan(lastKey = undefined, { pk, sk }) {
-    log.info('Executing scan function');
-    const { connectionConfigs, TableName } = this;
-    const { client: dynamo, unmarshall, marshall } = getDynamoInstance(connectionConfigs);
-    const command = new ScanCommand({
-      TableName,
-      FilterExpression: 'begins_with(pk, :pk) and begins_with(sk, :sk)',
-      ExpressionAttributeValues: marshall({
-        ":pk": pk,
-        ":sk": sk,
-      }),
-      // Limit: this.paginationLimit,
-      ExclusiveStartKey: lastKey
-        ? marshall({ id: lastKey })
-        : undefined
-    });
-    log.info(`Executing scan with pk ${pk}`);
-    log.info(`Executing scan with sk ${sk}`);
-    return dynamo
-      .send(command)
-      .then(result => (
-        result
-          ? result.Items.map(item => unmarshall(item))
-          : []
-      ))
-      .finally(() => dynamo.destroy());
-  }
-
-  /**
-   * @description
-   *
-   * Return all the toggles that are stored.
-   * You can pass the `lastKey` as parameter to control pagination.
-   *
-   * @param lastKey
-   * @returns {Promise<IToggle[]>}
-   */
-  async listAll(lastKey = undefined) {
-    log.info('Executing list function');
-    const features = await this.scan(lastKey, {
-      pk: this.prefixFeature,
-      sk: this.prefixFeature,
-    });
-    log.debug({ features });
-    log.info('Making requests of roles and systems');
-    for await (let feature of features) {
-      const roles = await this.#listAllRolesOfFeature(feature.pk);
-      const systems = await this.#listAllSystemsOfFeature(feature.pk);
-      log.debug({ roles });
-      log.debug({ systems });
-      feature.allowedRoles = roles;
-      feature.systems = systems;
-    }
-    log.info('Finished requests for roles and systems');
-    log.debug({ features });
-    return features.map(featureDTO);
   }
 
   /**
@@ -162,6 +100,39 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
   }
 
   /**
+   * @param {string} lastKey
+   * @param {ISingleTableQuery} filters
+   * @returns {Promise<IToggleSingleTable[]>}
+   */
+  scan(lastKey = undefined, { pk, sk }) {
+    log.info('Executing scan function');
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, unmarshall, marshall } = getDynamoInstance(connectionConfigs);
+    const command = new ScanCommand({
+      TableName,
+      FilterExpression: 'begins_with(pk, :pk) and begins_with(sk, :sk)',
+      ExpressionAttributeValues: marshall({
+        ":pk": pk,
+        ":sk": sk,
+      }),
+      // Limit: this.paginationLimit,
+      ExclusiveStartKey: lastKey
+        ? marshall({ id: lastKey })
+        : undefined
+    });
+    log.info(`Executing scan with pk ${pk}`);
+    log.info(`Executing scan with sk ${sk}`);
+    return dynamo
+      .send(command)
+      .then(result => (
+        result
+          ? result.Items.map(item => unmarshall(item))
+          : []
+      ))
+      .finally(() => dynamo.destroy());
+  }
+
+  /**
    * @description
    *
    * Will list all roles that are stored.
@@ -207,6 +178,83 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
    * @param {IToggle[]} systems
    */
   listAllFeaturesOfSystems(systems) {
+
+  }
+
+  /**
+   * @description
+   *
+   * Return all the toggles that are stored.
+   * You can pass the `lastKey` as parameter to control pagination.
+   *
+   * @param lastKey
+   * @returns {Promise<IToggle[]>}
+   */
+  async list(lastKey = undefined) {
+    log.info('Executing list function');
+    const features = await this.scan(lastKey, {
+      pk: this.prefixFeature,
+      sk: this.prefixFeature,
+    });
+    log.debug({ features });
+    log.info('Making requests of roles and systems');
+    for await (let feature of features) {
+      const roles = await this.#listAllRolesOfFeature(feature.pk);
+      const systems = await this.#listAllSystemsOfFeature(feature.pk);
+      log.debug({ roles });
+      log.debug({ systems });
+      feature.allowedRoles = roles;
+      feature.systems = systems;
+    }
+    log.info('Finished requests for roles and systems');
+    log.debug({ features });
+    return features.map(toggleDTO);
+  }
+
+  insert(toggle) {
+    const { name, description } = toggle;
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+    const id = `${this.prefixFeature}${v4()}`;
+    const item = {
+      pk: id,
+      sk: id,
+      entityType: 'toggle',
+      name,
+      description,
+      roles: [],
+      systems: [],
+    };
+    const command = new PutItemCommand({
+      TableName,
+      Item: marshall(item),
+    });
+    return dynamo
+      .send(command)
+      .then(() => this.search(id))
+      .finally(() => dynamo.destroy());
+  }
+
+  search(id) {
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall, unmarshall } = getDynamoInstance(connectionConfigs);
+    const Key = marshall({ pk: id, sk: id });
+    const command = new GetItemCommand({ TableName, Key })
+    return dynamo
+      .send(command)
+      .then((result) => (
+        result.Item
+          ? unmarshall(result.Item)
+          : undefined
+      ))
+      .finally(() => dynamo.destroy());
+  }
+
+  update(id, toggle) {
+
+  }
+
+  delete(id) {
 
   }
 }
