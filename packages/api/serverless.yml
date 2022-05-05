@@ -22,6 +22,7 @@ functions:
       - http:
           path: /features
           method: post
+          cors: true
 
   listFeature:
     handler: dist/index.listAllFeaturesHandler
@@ -29,6 +30,7 @@ functions:
       - http:
           path: /features
           method: get
+          cors: true
 
   getFeature:
     handler: dist/index.getFeatureHandler
@@ -36,6 +38,7 @@ functions:
       - http:
           path: /features/{id}
           method: get
+          cors: true
 
   deleteFeature:
     handler: dist/index.deleteFeatureHandler
@@ -43,6 +46,7 @@ functions:
       - http:
           path: /features/{id}
           method: delete
+          cors: true
 
   updateFeature:
     handler: dist/index.updateFeatureHandle
@@ -50,6 +54,24 @@ functions:
       - http:
           path: /features/{id}
           method: put
+          cors: true
+
+  listRoles:
+    handler: dist/index.listAllRolesHandler
+    events:
+      - http:
+          path: /roles
+          method: get
+          cors: true
+
+  listSystems:
+    handler: dist/index.listAllSystemsHandler
+    events:
+      - http:
+          path: /systems
+          method: get
+          cors: true
+
 
 resources:
   Resources:

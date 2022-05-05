@@ -3,6 +3,10 @@ export function handlerSuccess(event) {
   return function (feature) {
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      },
       body: JSON.stringify(feature),
     }
   }

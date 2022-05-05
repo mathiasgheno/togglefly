@@ -2,7 +2,14 @@ POST https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/features
 Content-Type: application/json
 
 {
-  "title": "test handler heeyyy 2",
+  "name": "TEST_HANDLER_V2",
+  "description": "test handler heeyyy 2",
   "allowedRoles": ["ADMIN"],
   "systems": ["S1", "S2"]
 }
+
+
+###
+
+GET https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/features
+Content-Type: application/json

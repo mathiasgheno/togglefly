@@ -1,12 +1,12 @@
-import { DynamoDBEntity } from '@togglefly/core';
+import { FeaturesSingleTableEntity } from '@togglefly/core';
 import log from 'loglevel';
 
-export const featuresEntityFactory = async function () {
+export const entityInstance = async function () {
   const ENTITY = 'features';
 
   log.info(`Executing featuresEntityFactory`);
 
-  const entity = new DynamoDBEntity('features');
+  const entity = new FeaturesSingleTableEntity('features');
   await entity.createTable();
 
   log.info(`Everyhing ok with entity ${ENTITY}.`);

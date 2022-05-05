@@ -1,6 +1,6 @@
 import { DynamoDBConfig, getDynamoInstance } from '../../index.js';
 import {ScanCommand, PutItemCommand, GetItemCommand} from '@aws-sdk/client-dynamodb';
-import { toggleDTO } from './ToggleSingleTable.utils.js';
+import { toggleDTO, systemsDTO, rolesDTO } from './ToggleSingleTable.utils.js';
 import { v4 } from 'uuid';
 import log from 'loglevel';
 
@@ -139,13 +139,13 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
    *
    * @returns {Promise<string[]>}
    */
-  listAllRoles() {
+  listAllRoles( ) {
     const query = {
       pk: this.prefixRole,
       sk: this.prefixRole,
     };
     return this.scan(undefined, query)
-      .then(result => result.map(({ name }) => name));
+      .then(result => result.map(rolesDTO));
   }
 
   /**
@@ -158,7 +158,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       sk: this.prefixSystem,
     };
     return this.scan(undefined, query)
-      .then(result => result.map(({ name }) => name));
+      .then(result => result.map(systemsDTO));
   }
 
   /**
@@ -222,17 +222,75 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       entityType: 'toggle',
       name,
       description,
-      roles: [],
-      systems: [],
+      allowedRoles: toggle.allowedRoles || [],
+      systems: toggle.systems || [],
     };
     const command = new PutItemCommand({
       TableName,
       Item: marshall(item),
     });
-    return dynamo
-      .send(command)
-      .then(() => this.search(id))
+    return this.#insertSystemsForToggle(item)
+      .then(() => this.#insertRolesForToggle(item))
+      .then(() => dynamo.send(command))
+      .then(() => this.getToggle(id))
       .finally(() => dynamo.destroy());
+  }
+
+  /**
+   * @description Add relationship
+   * @param toggle
+   * @returns {Promise<void>}
+   */
+  async #insertRolesForToggle({ pk, allowedRoles }) {
+    if(allowedRoles?.length === 0) return;
+    const getItem = (role) => ({
+      pk: pk,
+      sk: role,
+      entityType: 'role',
+    });
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+    for await (let allowedRole of allowedRoles) {
+      const item = getItem(allowedRole);
+      const command = new PutItemCommand({
+        TableName,
+        Item: marshall(item),
+      });
+      log.info(`Trying to insert role ${allowedRole} for toggle ${pk}`);
+      await dynamo
+        .send(command)
+        .catch((erro) => {
+          log.error(`Error in insert role ${allowedRole} for toggle ${pk}`);
+          log.error(erro);
+          return Promise.reject(erro);
+        });
+    }
+  }
+
+  async #insertSystemsForToggle({ pk, systems }) {
+    if(systems?.length === 0) return;
+    const getItem = (role) => ({
+      pk: pk,
+      sk: role,
+      entityType: 'system',
+    });
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+    for await (let system of systems) {
+      const item = getItem(system);
+      const command = new PutItemCommand({
+        TableName,
+        Item: marshall(item),
+      });
+      log.info(`Trying to insert system ${system} for feature ${pk}`);
+      await dynamo
+        .send(command)
+        .catch((erro) => {
+          log.error(`Error in insert system ${system} for feature ${pk}`);
+          log.error(erro);
+          return Promise.reject(erro);
+        });
+    }
   }
 
   search(id) {
@@ -248,6 +306,11 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
           : undefined
       ))
       .finally(() => dynamo.destroy());
+  }
+
+  getToggle(id) {
+    return this.search(id)
+      .then(item => item && toggleDTO(item))
   }
 
   update(id, toggle) {

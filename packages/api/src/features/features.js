@@ -1,5 +1,5 @@
 import { handlerSuccess, handlerError } from '../utils/api.utils.js';
-import { featuresEntityFactory } from './features.entity.js';
+import { entityInstance } from '../entity/entityInstance.js';
 import log from 'loglevel';
 
 log.setLevel('info');
@@ -7,7 +7,7 @@ log.setLevel('info');
 export async function createFeatureHandler(event) {
   log.info('Executing createFeatureHandler function');
   const featureDTO = JSON.parse(event.body);
-  const entity = await featuresEntityFactory();
+  const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   log.info('Executing insert in createFeatureHandler');
   return featureInstance
@@ -18,10 +18,10 @@ export async function createFeatureHandler(event) {
 
 export async function listAllFeaturesHandler(event) {
   log.info('Executing createFeatureHandler function');
-  const entity = await featuresEntityFactory();
+  const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   return featureInstance
-    .listAll()
+    .list()
     .then(handlerSuccess(event))
     .catch(handlerError(event))
 }
@@ -50,7 +50,7 @@ export async function updateFeatureHandle(event) {
   const objectDocument = {...body, id};
 
   log.info('Executing updateFeatureHandle function');
-  const entity = await featuresEntityFactory();
+  const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   return featureInstance
     .update(objectDocument)
@@ -69,7 +69,7 @@ export async function deleteFeatureHandler(event) {
     }
   }
   log.info('Executing deleteFeatureHandler function');
-  const entity = await featuresEntityFactory();
+  const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   return featureInstance
     .remove({ id })
@@ -88,7 +88,7 @@ export async function getFeatureHandler(event) {
     }
   }
   log.info('Executing getFeature function');
-  const entity = await featuresEntityFactory();
+  const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   return featureInstance
     .search({ id })

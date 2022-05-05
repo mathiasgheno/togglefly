@@ -8,5 +8,5 @@ export {
 } from './DynamoDB/DynamoDBUtil/DynamoDBUtil.js';
 export { getDynamoInstance } from './DynamoDB/DynamoDBInstance/DynamoDBInstance.js';
 export { DynamoDBConfig } from './DynamoDB/DynamoDBConfig/DynamoDBConfig.js';
-
+export { FeaturesSingleTableEntity } from './DynamoDB/ToggleSingleTable/ToggleSingleTable.js';
 console.log('hello from @togglefly/core');

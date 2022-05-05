@@ -5,8 +5,14 @@ export {
   deleteFeatureHandler,
   listAllFeaturesHandler,
 } from './features/features.js';
+export {
+  listAllSystemsHandler,
+} from './systems/systems.js';
+export {
+  listAllRolesHandler,
+} from './roles/roles.js';
 
-import { listAllFeaturesHandler }from './features/features.js'
+// import { listAllFeaturesHandler }from './features/features.js'
 
 console.log('hello from @togglefly/api');
 
