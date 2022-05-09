@@ -16,5 +16,5 @@ const system = ['S#1', 'S#2'];
 //   allowedRoles: [],
 // });
 // const resultado = await featuresSingleTable.getToggle('F#a97400e7-9397-416d-aa2f-eaa98f9dfffd');
-// const resultado = await featuresSingleTable.listAllSystems();
-// console.log(resultado);
+const resultado = await featuresSingleTable.delete('F#37219d67-9b52-4ee3-8501-14abd7170078');
+console.log(resultado);

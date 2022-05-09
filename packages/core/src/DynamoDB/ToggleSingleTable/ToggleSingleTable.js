@@ -1,5 +1,10 @@
 import { DynamoDBConfig, getDynamoInstance } from '../../index.js';
-import {ScanCommand, PutItemCommand, GetItemCommand} from '@aws-sdk/client-dynamodb';
+import {
+  ScanCommand,
+  PutItemCommand,
+  GetItemCommand,
+  DeleteItemCommand,
+} from '@aws-sdk/client-dynamodb';
 import { toggleDTO, systemsDTO, rolesDTO } from './ToggleSingleTable.utils.js';
 import { v4 } from 'uuid';
 import log from 'loglevel';
@@ -313,11 +318,26 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       .then(item => item && toggleDTO(item))
   }
 
-  update(id, toggle) {
+  update(Key, toggle) {
 
   }
 
-  delete(id) {
-
+  async delete(id) {
+    log.info('Executing delete function');
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamodb, marshall } = getDynamoInstance(connectionConfigs);
+    const Key = marshall({ pk: id, sk: id });
+    const command = new DeleteItemCommand({
+      TableName,
+      Key,
+    });
+    const toggle = await this.getToggle(id);
+    if(toggle !== undefined) {
+      log.info('Sending delete command');
+      return dynamodb
+        .send(command)
+        .finally(() => dynamodb.destroy());
+    }
+    log.info('Nothing to delete');
   }
 }
