@@ -82,6 +82,74 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     return roles.map(({ name }) => name);
   }
 
+  async #deleteAllRolesOfToggle(toggle) {
+    log.info('Executing deleteAllRolesOfToggle function.');
+    const roles = await this.scan(undefined, {
+      pk: toggle,
+      sk: this.prefixRole,
+    });
+    log.debug({ roles });
+
+    if(!roles.length) {
+      log.info(`No roles to delete for toggle ${toggle}`);
+      return;
+    }
+
+
+    log.info(`Deleting ${roles.length} roles`);
+
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+
+    for await (let role of roles) {
+      log.info(`Deleting role ${role.sk} of ${toggle}`);
+      const Role = marshall({
+        pk: toggle,
+        sk: role.sk,
+      });
+      const command = new DeleteItemCommand({
+        TableName,
+        Key: Role,
+      });
+      await dynamo.send(command);
+    }
+
+    return dynamo.destroy();
+  }
+
+  async #deleteAllSystemsOfToggle(toggle) {
+    log.info('Executing deleteAllSystemsOfToggle function.');
+    const systems = await this.scan(undefined, {
+      pk: toggle,
+      sk: this.prefixSystem,
+    });
+
+    if(!systems.length) {
+      log.info(`No systems to delete for toggle ${toggle}`);
+      return;
+    }
+
+    log.info(`Deleting ${systems.length} systems`);
+
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+
+    for await (let system of systems) {
+      log.info(`Deleting system ${system.sk} of ${toggle}`);
+      const Role = marshall({
+        pk: toggle,
+        sk: system.sk,
+      });
+      const command = new DeleteItemCommand({
+        TableName,
+        Key: Role,
+      });
+      await dynamo.send(command);
+    }
+
+    return dynamo.destroy();
+  }
+
   /**
    * @private
    * @param {String} feature
@@ -334,6 +402,8 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     const toggle = await this.getToggle(id);
     if(toggle !== undefined) {
       log.info('Sending delete command');
+      await this.#deleteAllRolesOfToggle(id);
+      await this.#deleteAllSystemsOfToggle(id);
       return dynamodb
         .send(command)
         .finally(() => dynamodb.destroy());
