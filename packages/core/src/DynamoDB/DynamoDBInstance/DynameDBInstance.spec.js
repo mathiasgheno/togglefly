@@ -1,6 +1,6 @@
 import { getDynamoInstance } from './DynamoDBInstance.js';
 
-describe('DynamoDBInstance', () => {
+xdescribe('DynamoDBInstance', () => {
   let instance;
 
   beforeEach(() => {

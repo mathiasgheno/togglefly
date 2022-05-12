@@ -10,7 +10,7 @@ module.exports = {
   coverageProvider: "v8",
   transform: {},
   testMatch: [
-    '<rootDir>/src/**/*.spec.js',
-    '<rootDir>/src/**/*.spec.mjs',
+    '<rootDir>/packages/**/*.spec.js',
+    '<rootDir>/packages/**/*.spec.mjs',
   ],
 };

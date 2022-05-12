@@ -8,7 +8,7 @@
  */
 
 /**
- * @typedef IFeatureTable
+ * @typedef IToggleTable
  * @property {string} pk
  * @property {string} sk
  * @property {string} name
@@ -18,16 +18,24 @@
  */
 
 /**
- * @param {IFeatureTable} feature
+ * @typedef IToggleUpdate
+ * @property {string} id
+ * @property {string} [description='']
+ * @property {string[]} [allowedRoles=[]]
+ * @property {string[]} [systems=[]]
+ */
+
+/**
+ * @param {IToggleTable} toggle
  * @returns IToggle
  */
-export const toggleDTO = (feature) => {
+export const toggleDTO = (toggle) => {
   return {
-    id: feature.pk,
-    allowedRoles: feature.allowedRoles || [],
-    systems: feature.systems || [],
-    name: feature.name,
-    description: feature.description
+    id: toggle.pk,
+    allowedRoles: toggle.allowedRoles || [],
+    systems: toggle.systems || [],
+    name: toggle.name,
+    description: toggle.description
   };
 }
 

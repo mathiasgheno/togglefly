@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "pnpm recursive test",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "pnpm recursive run start",
     "workspaces": "pnpm ls -r --depth -1 --json",
     "deploy": "pnpm recursive run deploy",

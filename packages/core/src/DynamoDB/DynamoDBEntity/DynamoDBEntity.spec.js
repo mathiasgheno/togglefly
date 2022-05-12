@@ -1,6 +1,6 @@
 import { DynamoDBEntity } from './DynamoDBEntity.js';
 
-describe('DynamoDBEntity', () => {
+xdescribe('DynamoDBEntity', () => {
   let entity;
 
   beforeEach(async () => {

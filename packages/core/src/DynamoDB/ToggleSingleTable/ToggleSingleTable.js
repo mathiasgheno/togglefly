@@ -288,7 +288,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     const { name, description } = toggle;
     const { connectionConfigs, TableName } = this;
     const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
-    const id = `${this.prefixFeature}${v4()}`;
+    const id = toggle.id || `${this.prefixFeature}${v4()}`;
     const item = {
       pk: id,
       sk: id,
@@ -302,6 +302,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       TableName,
       Item: marshall(item),
     });
+    log.info(`Trying to insert toggle ${id}`);
     return this.#insertSystemsForToggle(item)
       .then(() => this.#insertRolesForToggle(item))
       .then(() => dynamo.send(command))
@@ -381,13 +382,23 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       .finally(() => dynamo.destroy());
   }
 
+
+  /**
+   * @param {string} id
+   * @returns {Promise<IToggle>}
+   */
   getToggle(id) {
     return this.search(id)
       .then(item => item && toggleDTO(item))
   }
 
-  update(Key, toggle) {
-
+  /**
+   * @param {IToggleUpdate} toggle
+   * @returns {Promise<IToggle>}
+   */
+  update(toggle) {
+    return this.delete(toggle.id)
+      .then(() => this.insert(toggle));
   }
 
   async delete(id) {

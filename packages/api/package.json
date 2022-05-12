@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "start": "node src/index.js",
     "deploy": "pnpm run build && sls deploy --region sa-east-1",
     "build": "ncc build src/index.js -o dist"

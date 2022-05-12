@@ -1,0 +1,19 @@
+{
+  "name": "@togglefly/utils",
+  "version": "0.0.1",
+  "description": "Utils for Togglefly project",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "utils",
+    "togglefly"
+  ],
+  "author": "Mathias Gheno Azzolini<mathiasgheno@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "loglevel": "^1.8.0"
+  }
+}
