@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { listFeatures } from './Service/Feature.service';
+import { listFeatures } from './Service/Toggles.service';
+import { Header } from './Toggles.styled';
 
-export const Features = () => {
+export const Toggles = () => {
   const [ loading, setLoading ] = useState(true);
   const [ toggles, setToggles ] = useState([]);
   const [ erro, setErro ] = useState(false);
@@ -23,7 +24,10 @@ export const Features = () => {
 
   return (
     <div>
-      <h3>All Features</h3>
+      <Header>
+        <h3>All Toggles</h3>
+        <a href="#/toggle">New Toggle</a>
+      </Header>
       {loading && (<p>Loading...</p>)}
       {!loading && (
         <ul>

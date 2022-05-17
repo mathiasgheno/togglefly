@@ -3,7 +3,7 @@ import { NormalizeCSS } from './NormalizeCSS';
 import styled from 'styled-components';
 
 import { Header } from './components/Header';
-import { Systems, Roles, Features } from './routes';
+import { Systems, Roles, Toggles, Toggle } from './routes';
 
 const Container = styled.div`
   max-width: 60%;
@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 export function App() {
-  const [ activeRoute, setActiveRoute ] = React.useState('#/home');
+  const [ activeRoute, setActiveRoute ] = React.useState(window.location.hash || '#/home');
 
   const handleRouteChanges = () => {
     const hash = window.location.hash;
@@ -27,7 +27,8 @@ export function App() {
     <Container>
       <NormalizeCSS />
       <Header />
-      {activeRoute === '#/home' && <Features />}
+      {(activeRoute === '#/home' || activeRoute === '#/toggles') && <Toggles />}
+      {activeRoute === '#/toggle' && <Toggle />}
       {activeRoute === '#/roles' && <Roles />}
       {activeRoute === '#/systems' && <Systems />}
     </Container>
