@@ -58,7 +58,7 @@ export const Toggle = () => {
       ...role,
       check: role.id === id
         ? true
-        : role.id,
+        : role.check,
     }));
     setAllRoles(rolesCheckBox);
   }
@@ -68,7 +68,7 @@ export const Toggle = () => {
       ...system,
       check: system.id === id
         ? true
-        : system.id,
+        : system.check,
     }));
     setAllSystems(systemsCheckBox);
   }
