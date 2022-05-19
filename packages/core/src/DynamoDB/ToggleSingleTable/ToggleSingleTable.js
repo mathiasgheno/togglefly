@@ -5,7 +5,7 @@ import {
   GetItemCommand,
   DeleteItemCommand,
 } from '@aws-sdk/client-dynamodb';
-import { toggleDTO, systemsDTO, rolesDTO } from './ToggleSingleTable.utils.js';
+import {toggleDTO, systemsDTO, rolesDTO, generateSystem} from './ToggleSingleTable.utils.js';
 import { v4 } from 'uuid';
 import log from 'loglevel';
 
@@ -284,6 +284,45 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     return features.map(toggleDTO);
   }
 
+  insertRole(role) {
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+    const id = `${this.prefixRole}${v4()}`;
+    const item = {
+      pk: id,
+      sk: id,
+      entityType: 'system',
+      ...role,
+    };
+    const command = new PutItemCommand({
+      TableName,
+      Item: marshall(item),
+    });
+    return dynamo.send(command)
+      .then(() => this.#getRoleDetails(id))
+      .finally(() => dynamo.destroy());
+
+  }
+
+  insertSystem(system) {
+    const { connectionConfigs, TableName } = this;
+    const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
+    const id = `${this.prefixSystem}${v4()}`;
+    const item = {
+      pk: id,
+      sk: id,
+      entityType: 'system',
+      ...system,
+    };
+    const command = new PutItemCommand({
+      TableName,
+      Item: marshall(item),
+    });
+    return dynamo.send(command)
+      .then(() => this.#getSystemDetails(id))
+      .finally(() => dynamo.destroy());
+  }
+
   insert(toggle) {
     const { name, description } = toggle;
     const { connectionConfigs, TableName } = this;
@@ -381,7 +420,6 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       ))
       .finally(() => dynamo.destroy());
   }
-
 
   /**
    * @param {string} id

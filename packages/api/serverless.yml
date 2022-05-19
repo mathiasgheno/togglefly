@@ -64,12 +64,28 @@ functions:
           method: get
           cors: true
 
+  createRoles:
+    handler: dist/index.createRoleHandler
+    events:
+      - http:
+          path: /roles
+          method: post
+          cors: true
+
   listSystems:
     handler: dist/index.listAllSystemsHandler
     events:
       - http:
           path: /systems
           method: get
+          cors: true
+
+  createSystems:
+    handler: dist/index.createSystemHandler
+    events:
+      - http:
+          path: /systems
+          method: post
           cors: true
 
 

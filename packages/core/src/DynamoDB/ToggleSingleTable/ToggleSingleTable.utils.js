@@ -94,3 +94,9 @@ export function rolesDTO(roleTable) {
     description: roleTable.description,
   }
 }
+
+export const generateSystem = (pk, system) => ({
+  pk: pk,
+  sk: system,
+  entityType: 'system',
+})

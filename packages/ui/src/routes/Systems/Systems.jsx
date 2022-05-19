@@ -23,7 +23,10 @@ export const Systems = () => {
 
   return (
     <div>
-      <h3>All Systems</h3>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <h3>All Systems</h3>
+        <a href="#/system">New System</a>
+      </div>
       {loading && (<p>Loading...</p>)}
       {!loading && (
         <ul>

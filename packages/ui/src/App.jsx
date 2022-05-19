@@ -3,7 +3,14 @@ import { NormalizeCSS } from './NormalizeCSS';
 import styled from 'styled-components';
 
 import { Header } from './components/Header';
-import { Systems, Roles, Toggles, Toggle } from './routes';
+import {
+  Systems,
+  Role,
+  Roles,
+  Toggles,
+  Toggle,
+  System,
+} from './routes';
 
 const Container = styled.div`
   max-width: 60%;
@@ -30,7 +37,9 @@ export function App() {
       {(activeRoute === '#/home' || activeRoute === '#/toggles') && <Toggles />}
       {activeRoute === '#/toggle' && <Toggle />}
       {activeRoute === '#/roles' && <Roles />}
+      {activeRoute === '#/role' && <Role />}
       {activeRoute === '#/systems' && <Systems />}
+      {activeRoute === '#/system' && <System />}
     </Container>
   )
 }

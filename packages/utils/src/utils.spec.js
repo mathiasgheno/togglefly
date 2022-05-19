@@ -28,6 +28,6 @@ describe('@togglefly/utils', () => {
         hasRole('R#3'),
       );
       expect(hasAccess(toggles)).toEqual(false);
-    })
+    });
   })
 })

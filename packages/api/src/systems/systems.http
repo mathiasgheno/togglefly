@@ -1,1 +1,10 @@
 GET https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/systems
+
+####
+
+POST https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/systems
+Content-Type: application/json
+
+{
+  "name": "TEST_FROM_HTTP_API"
+}

@@ -14,3 +14,14 @@ export async function listAllSystemsHandler(event) {
     .then(handlerSuccess(event))
     .catch(handlerError(event))
 }
+
+export async function createSystemHandler(event) {
+  log.info('Executing createRoleHandler function');
+  const entity = await entityInstance();
+  const systemDTO = JSON.parse(event.body);
+  const featureInstance = entity.getIntance();
+  return featureInstance
+    .insertSystem(systemDTO)
+    .then(handlerSuccess(event))
+    .catch(handlerError(event))
+}

@@ -1,1 +1,11 @@
 GET https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/roles
+
+
+####
+
+POST https://l3ut0axl99.execute-api.sa-east-1.amazonaws.com/dev/roles
+Content-Type: application/json
+
+{
+  "name": "TEST_FROM_HTTP_API"
+}

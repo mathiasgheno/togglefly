@@ -23,7 +23,10 @@ export const Roles = () => {
 
   return (
     <div>
-      <h3>All Roles</h3>
+      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+        <h3>All Roles</h3>
+        <a href="#/role">New Role</a>
+      </div>
       {loading && (<p>Loading...</p>)}
       {!loading && (
         <ul>

@@ -14,3 +14,14 @@ export async function listAllRolesHandler(event) {
     .then(handlerSuccess(event))
     .catch(handlerError(event))
 }
+
+export async function createRoleHandler(event) {
+  log.info('Executing createRoleHandler function');
+  const entity = await entityInstance();
+  const roleDTO = JSON.parse(event.body);
+  const featureInstance = entity.getIntance();
+  return featureInstance
+    .insertRole(roleDTO)
+    .then(handlerSuccess(event))
+    .catch(handlerError(event))
+}
