@@ -55,7 +55,7 @@ export function Admin() {
 
 ## Allowing Access Globally
 
-We recommend you to use this library with Princible of Least Privilage — POLP, in mind.  With that you can use this project to allow your user to do things based on enabled features based on roles and systems. 
+We recommend you to use this library with Principle of Least Privilage — POLP, in mind.  With that you can use this project to allow your user to do things based on enabled features based on roles and systems. 
 
 For operations that are related with users you can use `hasRole` with `hasFeature`. 
 
