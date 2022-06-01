@@ -1,29 +1,27 @@
 {
-  "name": "@togglefly/ui",
+  "name": "@togglefly/components",
   "version": "0.0.1",
-  "description": "",
-  "main": "src/index.mjs",
+  "description": "Library of Shared React Components",
+  "main": "dist/index.js",
+  "type": "module",
   "engines": {
     "node": "14"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "build": "esbuild src/index.jsx --bundle --outfile=public/index.js",
-    "start": "node src/index.mjs",
-    "server": "pnpm run build && node server.mjs"
+    "build": "node scripts/build.js",
+    "start": "node src/index.mjs"
   },
-  "keywords": [],
+  "keywords": ["components", "react", "togglefly"],
   "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@togglefly/components": "workspace:^0.0.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-is": "^18.0.0",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "chokidar": "^3.5.3",
     "esbuild": "^0.14.38"
   }
 }

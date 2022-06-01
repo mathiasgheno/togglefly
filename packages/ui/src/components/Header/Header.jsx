@@ -10,7 +10,7 @@ export function Header() {
     <Container>
       <h1>🚀</h1>
       <Navegation>
-        <Link href="#/home">Features</Link>
+        <Link href="#/toggles">Toggles</Link>
         <Link href="#/systems">Systems</Link>
         <Link href="#/roles">Roles</Link>
       </Navegation>

@@ -1,5 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { listSystems } from './Service/Systems.service';
+import { Button } from '@togglefly/components';
+import {Header} from './Systems.styled';
 
 export const Systems = () => {
   const [ loading, setLoading ] = useState(true);
@@ -23,10 +25,10 @@ export const Systems = () => {
 
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <Header>
         <h3>All Systems</h3>
         <a href="#/system">New System</a>
-      </div>
+      </Header>
       {loading && (<p>Loading...</p>)}
       {!loading && (
         <ul>
@@ -40,7 +42,7 @@ export const Systems = () => {
       {erro && (
         <>
           <p>Something went wrong</p>
-          <button onClick={() => _list()}>Try Again!</button>
+          <Button onClick={() => _list()}>Try Again!</Button>
         </>
       )}
     </div>

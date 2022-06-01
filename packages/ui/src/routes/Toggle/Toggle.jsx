@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from './Toggle.styled';
 import { createToggle, listRoles, listSystems } from './Service/Toggle.service';
+import { Button } from '@togglefly/components';
 
 export const Toggle = () => {
   const [ name, setName ] = useState(null);
@@ -142,7 +143,7 @@ export const Toggle = () => {
         }
         <label htmlFor="description">Description</label>
         <textarea name="description" id="description" cols="30" rows="10" />
-        <button type="submit" disabled={submitting}>{loading ? '...loading': 'Add'}</button>
+        <Button type="submit" disabled={submitting}>{loading ? '...loading': 'Add'}</Button>
       </form>
     </Container>
   );

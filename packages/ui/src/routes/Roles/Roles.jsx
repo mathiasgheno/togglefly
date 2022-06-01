@@ -1,5 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { listRoles } from './Service/Roles.service';
+import { Button } from '@togglefly/components';
+import { Header } from './Roles.styled';
 
 export const Roles = () => {
   const [ loading, setLoading ] = useState(true);
@@ -23,10 +25,10 @@ export const Roles = () => {
 
   return (
     <div>
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <Header>
         <h3>All Roles</h3>
         <a href="#/role">New Role</a>
-      </div>
+      </Header>
       {loading && (<p>Loading...</p>)}
       {!loading && (
         <ul>
@@ -40,7 +42,7 @@ export const Roles = () => {
       {erro && (
         <>
           <p>Something went wrong</p>
-          <button onClick={() => _list()}>Try Again!</button>
+          <Button onClick={() => _list()}>Try Again!</Button>
         </>
       )}
     </div>

@@ -13,9 +13,25 @@ importers:
     devDependencies:
       jest: 27.5.1
 
+  apps/react-example:
+    specifiers:
+      chokidar: ^3.5.3
+      esbuild: ^0.14.38
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      react-is: ^18.0.0
+      styled-components: ^5.3.5
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      react-is: 18.1.0
+      styled-components: 5.3.5_ik5wipile2geyxfvste7ddhvxy
+    devDependencies:
+      chokidar: 3.5.3
+      esbuild: 0.14.38
+
   packages/api:
     specifiers:
-      '@aws-sdk/smithy-client': ^3.85.0
       '@babel/core': ^7.11.1
       '@babel/preset-env': ^7.11.0
       '@togglefly/core': workspace:*
@@ -27,7 +43,6 @@ importers:
       serverless-webpack: ^5.3.1
       webpack: ^4.35.2
     dependencies:
-      '@aws-sdk/smithy-client': 3.85.0
       '@togglefly/core': link:../core
       loglevel: 1.8.0
     devDependencies:
@@ -46,6 +61,21 @@ importers:
   packages/cli:
     specifiers: {}
 
+  packages/components:
+    specifiers:
+      esbuild: ^0.14.38
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      react-is: ^18.0.0
+      styled-components: ^5.3.5
+    dependencies:
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      react-is: 18.1.0
+      styled-components: 5.3.5_ik5wipile2geyxfvste7ddhvxy
+    devDependencies:
+      esbuild: 0.14.38
+
   packages/core:
     specifiers:
       '@aws-sdk/client-dynamodb': ^3.58.0
@@ -62,8 +92,12 @@ importers:
       loglevel: 1.8.0
       uuid: 8.3.2
 
+  packages/react-client:
+    specifiers: {}
+
   packages/ui:
     specifiers:
+      '@togglefly/components': workspace:^0.0.1
       chokidar: ^3.5.3
       esbuild: ^0.14.38
       react: ^18.0.0
@@ -71,6 +105,7 @@ importers:
       react-is: ^18.0.0
       styled-components: ^5.3.5
     dependencies:
+      '@togglefly/components': link:../components
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
       react-is: 18.1.0
@@ -107,7 +142,7 @@ packages:
       '@aws-crypto/sha256-js': 2.0.0
       '@aws-crypto/supports-web-crypto': 2.0.0
       '@aws-crypto/util': 2.0.1
-      '@aws-sdk/types': 3.55.0
+      '@aws-sdk/types': 3.78.0
       '@aws-sdk/util-locate-window': 3.55.0
       '@aws-sdk/util-utf8-browser': 3.55.0
       tslib: 1.14.1
@@ -117,7 +152,7 @@ packages:
     resolution: {integrity: sha512-VZY+mCY4Nmrs5WGfitmNqXzaE873fcIZDu54cbaDaaamsaTOP1DBImV9F4pICc3EHjQXujyE8jig+PFCaew9ig==}
     dependencies:
       '@aws-crypto/util': 2.0.1
-      '@aws-sdk/types': 3.55.0
+      '@aws-sdk/types': 3.78.0
       tslib: 1.14.1
     dev: false
 
@@ -130,7 +165,7 @@ packages:
   /@aws-crypto/util/2.0.1:
     resolution: {integrity: sha512-JJmFFwvbm08lULw4Nm5QOLg8+lAQeC8aCXK5xrtxntYzYXCGfHwUJ4Is3770Q7HmICsXthGQ+ZsDL7C2uH3yBQ==}
     dependencies:
-      '@aws-sdk/types': 3.55.0
+      '@aws-sdk/types': 3.78.0
       '@aws-sdk/util-utf8-browser': 3.55.0
       tslib: 1.14.1
     dev: false
@@ -534,13 +569,6 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@aws-sdk/middleware-stack/3.78.0:
-    resolution: {integrity: sha512-UoNfRh6eAJN3BJHlG1eb+KeuSe+zARTC2cglroJRyHc2j7GxH2i9FD3IJbj5wvzopJEnQzuY/VCs6STFkqWL1g==}
-    engines: {node: '>= 12.0.0'}
-    dependencies:
-      tslib: 2.3.1
-    dev: false
-
   /@aws-sdk/middleware-user-agent/3.58.0:
     resolution: {integrity: sha512-1c69bIWM63JwXijXvb9IWwcwQ/gViKMZ1lhxv52NvdG5VSxWXXsFJ2jETEXZoAypwT97Hmf3xo9SYuaHcKoq+g==}
     engines: {node: '>= 12.0.0'}
@@ -634,15 +662,6 @@ packages:
     dependencies:
       '@aws-sdk/middleware-stack': 3.55.0
       '@aws-sdk/types': 3.55.0
-      tslib: 2.3.1
-    dev: false
-
-  /@aws-sdk/smithy-client/3.85.0:
-    resolution: {integrity: sha512-Ox/yQEAnANzhpJMyrpuxWtF/i3EviavENczT7fo4uwSyZTz/sfSBQNjs/YAG1UeA6uOI3pBP5EaFERV5hr2fRA==}
-    engines: {node: '>= 12.0.0'}
-    dependencies:
-      '@aws-sdk/middleware-stack': 3.78.0
-      '@aws-sdk/types': 3.78.0
       tslib: 2.3.1
     dev: false
 

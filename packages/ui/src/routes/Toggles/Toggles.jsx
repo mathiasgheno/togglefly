@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { listFeatures } from './Service/Toggles.service';
 import { Header } from './Toggles.styled';
+import { Button } from '@togglefly/components';
 
 export const Toggles = () => {
   const [ loading, setLoading ] = useState(true);
@@ -41,7 +42,7 @@ export const Toggles = () => {
       {erro && (
         <>
           <p>Something went wrong</p>
-          <button onClick={() => _list()}>Try Again!</button>
+          <Button onClick={() => _list()}>Try Again!</Button>
         </>
       )}
     </div>

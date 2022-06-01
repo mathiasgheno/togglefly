@@ -1,4 +1,4 @@
-//https://github.com/Thoud/zero-dependency-web-server/blob/main/index.js
+// https://github.com/Thoud/zero-dependency-web-server/blob/main/index.js
 // https://github.com/felixge/node-paperboy/blob/master/lib/paperboy.js
 
 import http from 'http';

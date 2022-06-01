@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createRole } from './Role.service';
 import { Container } from './Role.styled';
+import { Button } from '@togglefly/components';
 
 export const Role = () => {
   const [ error, setError ] = useState(false);
@@ -39,7 +40,7 @@ export const Role = () => {
           disabled={submitting}
           onChange={(event) => setName(event.target.value)}
         />
-        <button type="submit">Add</button>
+        <Button type="submit">Add</Button>
       </form>
     </Container>
   )

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createSystem } from './System.service';
 import { Container } from './System.styled';
+import { Button } from '@togglefly/components';
 
 export const System = () => {
   const [ error, setError ] = useState(false);
@@ -39,7 +40,7 @@ export const System = () => {
           disabled={submitting}
           onChange={(event) => setName(event.target.value)}
         />
-        <button type="submit">Add</button>
+        <Button type="submit">Add</Button>
       </form>
     </Container>
   )
