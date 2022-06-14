@@ -49,7 +49,7 @@ functions:
           cors: true
 
   updateFeature:
-    handler: dist/index.updateFeatureHandle
+    handler: dist/index.updateFeatureHandler
     events:
       - http:
           path: /features/{id}

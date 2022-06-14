@@ -1,9 +1,9 @@
 export {
   getFeatureHandler,
-  updateFeatureHandle,
+  updateFeatureHandler,
   createFeatureHandler,
   deleteFeatureHandler,
-  listAllFeaturesHandler,
+  listAllFeaturesHandler
 } from './features/features.js';
 export {
   listAllSystemsHandler,

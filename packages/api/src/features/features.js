@@ -26,7 +26,7 @@ export async function listAllFeaturesHandler(event) {
     .catch(handlerError(event))
 }
 
-export async function updateFeatureHandle(event) {
+export async function updateFeatureHandler(event) {
   const id = event.pathParameters.id;
   if(!id) {
     return {
