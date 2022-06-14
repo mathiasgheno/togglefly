@@ -1,4 +1,8 @@
-# 🚀 Togglefly
+
+<div align="center" style="display: flex; justify-content: center; align-items: center">
+  <span style="font-weight: bold; font-size: 1.5rem">Togglefly</span>
+  <img alt="Lerna" src="https://i.imgur.com/sYxcbCb.png" height="40">
+</div>
 
 [//]: # (Togglefly is an Open Source Project that allows you to deploy a Feature Toggle System through AWS technologies such as DynamoDB and Lambda Functions. This project includes those features:)
 
