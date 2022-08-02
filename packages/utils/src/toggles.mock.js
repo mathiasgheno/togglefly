@@ -1,3 +1,6 @@
+/**
+ * @type {IToggle[]}
+ */
 export const mockToggles = Object.freeze([
   {
     name: 'TOGGLE_INSERT_TEST',
