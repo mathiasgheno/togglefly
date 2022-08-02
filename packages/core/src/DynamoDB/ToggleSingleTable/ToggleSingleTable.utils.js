@@ -1,10 +1,20 @@
 /**
  * @typedef IToggle
  * @property {string} id
- * @property {string[]} allowedRoles
- * @property {string[]} systems
+ * @property {string[]} [allowedRoles=[]]
+ * @property {string[]} [systems=[]]
  * @property {string} name
  * @property {string} description
+ * @property {boolean} [isActive=true]
+ */
+
+/**
+ * @typedef IToggleInsert
+ * @property {string[]} [allowedRoles=[]]
+ * @property {string[]} [systems=[]]
+ * @property {string} name
+ * @property {string} description
+ * @property {boolean} [isActive=true]
  */
 
 /**
@@ -13,8 +23,9 @@
  * @property {string} sk
  * @property {string} name
  * @property {string} description
- * @property {string[]} allowedRoles
- * @property {string[]} systems
+ * @property {string[]} [allowedRoles=[]]
+ * @property {string[]} [systems=[]]
+ * @property {boolean} [isActive=true]
  */
 
 /**
@@ -35,7 +46,8 @@ export const toggleDTO = (toggle) => {
     allowedRoles: toggle.allowedRoles || [],
     systems: toggle.systems || [],
     name: toggle.name,
-    description: toggle.description
+    description: toggle.description,
+    isActive: toggle.isActive,
   };
 }
 

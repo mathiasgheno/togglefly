@@ -323,11 +323,16 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       .finally(() => dynamo.destroy());
   }
 
+  /**
+   *
+   * @param {IToggleInsert} toggle
+   * @returns {Promise<IToggle>}
+   */
   insert(toggle) {
     const { name, description } = toggle;
     const { connectionConfigs, TableName } = this;
     const { client: dynamo, marshall } = getDynamoInstance(connectionConfigs);
-    const id = toggle.id || `${this.prefixFeature}${v4()}`;
+    const id = `${this.prefixFeature}${v4()}`;
     const item = {
       pk: id,
       sk: id,
@@ -336,6 +341,7 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
       description,
       allowedRoles: toggle.allowedRoles || [],
       systems: toggle.systems || [],
+      isActive: toggle.isActive || true,
     };
     const command = new PutItemCommand({
       TableName,
@@ -380,6 +386,12 @@ export class FeaturesSingleTableEntity extends DynamoDBConfig {
     }
   }
 
+  /**
+   *
+   * @param pk
+   * @param systems
+   * @returns {Promise<void>}
+   */
   async #insertSystemsForToggle({ pk, systems }) {
     if(systems?.length === 0) return;
     const getItem = (role) => ({

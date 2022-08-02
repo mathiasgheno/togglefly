@@ -33,7 +33,8 @@ export function generateDefaultCreateTableConfig(TableName) {
 export function generateDefaultConnectionConfig(dynamoDBConnection = {}) {
  return {
    region: 'sa-east-1',
-   endpoint: undefined,
+   // endpoint: undefined,
+   endpoint: 'http://localhost:8000',
    ...dynamoDBConnection
  }
 }

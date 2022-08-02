@@ -4,6 +4,7 @@
   "description": "",
   "type": "module",
   "main": "src/index.mjs",
+  "private": true,
   "engines": {
     "node": "14"
   },

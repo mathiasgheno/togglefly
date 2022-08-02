@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/index.mjs",
   "preferGlobal": true,
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "node src/index.mjs",

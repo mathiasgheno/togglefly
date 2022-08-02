@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "start": "pnpm recursive run start",
+    "start": "ntl -A -o",
+    "dev": "pnpm recursive run dev",
     "workspaces": "pnpm ls -r --depth -1 --json",
-    "list": "npm run workspaces",
     "deploy": "pnpm recursive run deploy",
     "postinstall": "pnpm recursive run link",
     "storybook": "start-storybook -p 6006",
@@ -20,9 +20,7 @@
   ],
   "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
   "license": "ISC",
-  "dependencies": {
-    "@types/node": "^17.0.25"
-  },
+  "os": [ "linux" ],
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.6",
     "@storybook/addon-essentials": "^6.5.6",
@@ -33,6 +31,17 @@
     "@storybook/react": "^6.5.6",
     "@storybook/testing-library": "0.0.11",
     "jest": "^27.5.1",
-    "esbuild": "^0.14.38"
+    "esbuild": "^0.14.38",
+    "@types/node": "^17.0.25",
+    "@types/jest": "^28.1.6",
+    "ntl": "^5.1.0"
+  },
+  "ntl": {
+    "runner": "pnpm",
+    "descriptions": {
+      "workspaces": "List all workspaces available in the current project",
+      "test": "Run all test for the current project using Jest.",
+      "dev": "Start the local development environment."
+    }
   }
 }

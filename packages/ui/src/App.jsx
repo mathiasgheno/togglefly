@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NormalizeCSS } from './NormalizeCSS';
 import styled from 'styled-components';
-import { Button } from '@togglefly/components';
 
 import { Header } from './components/Header';
 import {
@@ -12,35 +11,45 @@ import {
   Toggle,
   System,
 } from './routes';
+import { useHashedRouter } from './hooks/useHashedRouter/useHashedRouter';
 
 const Container = styled.div`
-  max-width: 60%;
+  width: clamp(500px, 65%, 800px);
   margin: 0 auto;
+  max-width: 100%;
 `;
 
+function RouteWithParams({params, query}) {
+  return (
+    <div>
+      <code>
+        {JSON.stringify(params)}
+      </code>
+      <code>
+        {JSON.stringify(query)}
+      </code>
+    </div>
+  )
+}
+
 export function App() {
-  const [ activeRoute, setActiveRoute ] = React.useState(window.location.hash || '#/home');
+  const { route, getQuery, matchWith, getParams } = useHashedRouter();
 
-  const handleRouteChanges = () => {
-    const hash = window.location.hash;
-    setActiveRoute(hash);
-  }
-
-  useEffect(() => {
-    window.addEventListener('popstate', handleRouteChanges);
-    return () => window.removeEventListener('popstate', handleRouteChanges);
-  }, []);
+  console.log({route});
 
   return (
     <Container>
       <NormalizeCSS />
       <Header />
-      {(activeRoute === '#/home' || activeRoute === '#/toggles') && <Toggles />}
-      {activeRoute === '#/toggle' && <Toggle />}
-      {activeRoute === '#/roles' && <Roles />}
-      {activeRoute === '#/role' && <Role />}
-      {activeRoute === '#/systems' && <Systems />}
-      {activeRoute === '#/system' && <System />}
+      {/*<Router route={"#/home"} children={<Toggles />} />*/}
+      {matchWith('#/home') && <Toggles />}
+      {matchWith('#/toggles') && <Toggles />}
+      {matchWith('#/toggle') && <Toggle />}
+      {matchWith('#/roles') && <Roles />}
+      {matchWith('#/role') && <Role />}
+      {matchWith('#/systems') && <Systems />}
+      {matchWith('#/system') && <System />}
+      {matchWith('#/toggle/:id') && <RouteWithParams params={getParams('#/toggle/:id')} query={getQuery('#/toggle/:id')} />}
     </Container>
   )
 }

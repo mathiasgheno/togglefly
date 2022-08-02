@@ -4,6 +4,7 @@
   "description": "",
   "type": "module",
   "main": "src/index.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "start": "node src/index.js"
@@ -13,6 +14,7 @@
     "@aws-sdk/client-lambda": "^3.58.0",
     "@aws-sdk/lib-dynamodb": "^3.58.0",
     "@aws-sdk/util-dynamodb": "^3.58.0",
+    "@aws-sdk/smithy-client": "^3.58.0",
     "loglevel": "^1.8.0",
     "uuid": "^8.3.2"
   },

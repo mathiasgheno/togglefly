@@ -27,7 +27,7 @@ export const Toggles = () => {
     <div>
       <Header>
         <h3>All Toggles</h3>
-        <a href="#/toggle">New Toggle</a>
+        <a href="#/toggle?active=true">New Toggle</a>
       </Header>
       {loading && (<p>Loading...</p>)}
       {!loading && (
