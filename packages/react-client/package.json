@@ -6,6 +6,10 @@
   "scripts": {
     "test": ""
   },
+  "devDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

@@ -1,0 +1,27 @@
+{
+  "name": "togglefly-react-example",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "",
+  "main": "src/index.mjs",
+  "engines": {
+    "node": "14"
+  },
+  "scripts": {
+    "start": "node scripts/server.js"
+  },
+  "keywords": [],
+  "author": "Mathias Gheno Azzolini <mathiasgheno@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@togglefly/react-client": "workspace:^0.0.1",
+    "@togglefly/utils": "workspace:^0.0.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-is": "^18.0.0"
+  },
+  "devDependencies": {
+    "chokidar": "^3.5.3",
+    "esbuild": "^0.14.38"
+  }
+}
