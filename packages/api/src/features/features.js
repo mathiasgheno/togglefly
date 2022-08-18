@@ -7,6 +7,7 @@ log.setLevel('info');
 export async function createFeatureHandler(event) {
   log.info('Executing createFeatureHandler function');
   const featureDTO = JSON.parse(event.body);
+  log.debug({ featureDTO })
   const entity = await entityInstance();
   const featureInstance = entity.getIntance();
   log.info('Executing insert in createFeatureHandler');
@@ -97,4 +98,5 @@ export async function getFeatureHandler(event) {
 }
 
 // listAllFeaturesHandler().then(console.log);
+// createFeatureHandler({ body: '{"name": "Feature 1", "description": "Feature 1 description"}' }).then(console.log);
 // getFeature({params: {id: 'bla'}}).then(console.log);

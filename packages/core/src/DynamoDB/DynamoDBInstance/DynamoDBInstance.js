@@ -5,8 +5,8 @@ import { getMarshallDefaultConfig, getUnmarshallDefaultConfig } from '../DynamoD
 
 export function getDynamoInstance(options) {
   const client = new DynamoDBClient(options);
-  const unmarshallConfigs = getMarshallDefaultConfig();
-  const marshallConfigs = getUnmarshallDefaultConfig();
+  const unmarshallConfigs = getUnmarshallDefaultConfig();
+  const marshallConfigs = getMarshallDefaultConfig();
   const translateConfig = {
     marshallOptions: marshallConfigs,
     unmarshallOptions: unmarshallConfigs,
